@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Recuento Alumnos</h1>
+    <h2>Estaturas de los estudiantes del curso</h2>
+    <form id="formulario">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <br>
+        <label for="estatura">Estatura:</label>
+        <input type="number" id="estatura" name="estatura" step="0.01" required>
+        <br>
+        <button type="submit">Agregar estudiante</button>
+    </form>
+    <br>
+    <table id="estudiantes">
+        <tr>
+            <th>Nombre</th>
+            <th>Estatura</th>
+        </tr>
+    </table>
+
+    <script>
+        var estudiantesArray = [];
+
+        var tabla = document.getElementById('estudiantes');
+        var formulario = document.getElementById('formulario');
+
+        formulario.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var nombre = event.target.nombre.value;
+            var estatura = event.target.estatura.value;
+
+            estudiantesArray.push({ nombre, estatura });
+
+            event.target.nombre.value = '';
+            event.target.estatura.value = '';
+
+            actualizarTabla();
+        });
+
+        function actualizarTabla() {
+            tabla.innerHTML = '<tr><th>Nombre</th><th>Estatura</th></tr>';
+
+            estudiantesArray.forEach(function(estudiante) {
+                var fila = tabla.insertRow();
+                var nombreFila = fila.insertCell();
+                var estaturaFila = fila.insertCell();
+
+                nombreFila.textContent = estudiante.nombre;
+                estaturaFila.textContent = estudiante.estatura;
+            });
+        }
+    </script>
+</body>
+</html>
